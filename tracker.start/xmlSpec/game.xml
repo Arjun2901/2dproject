@@ -1,0 +1,126 @@
+<?xml version = "1.0"?>
+<GameData>
+<!-- screenTitle is also used to identify you and your animation. 
+     So make sure to include your name as part of the screenTitle -->
+<screenTitle>Bhavya and Arjun - Transformers!</screenTitle>
+<maxStringSize>50</maxStringSize>
+
+<frameCap>60</frameCap>
+<framesAreCapped>true</framesAreCapped>
+
+<frameMax>400</frameMax>
+<username>arjunb_bramakr</username>
+<numberOfOrbs>50</numberOfOrbs>
+
+<view>
+  <width>854</width>
+  <height>480</height>
+</view>
+
+<world>
+  <width>1600</width>
+  <height>800</height>
+</world>
+<Sky>
+  <width>1600</width>
+  <height>800</height>
+</Sky>
+<Sky>
+  <file>images/nightsky.jpg</file>
+  <red>193</red>
+  <green>205</green>
+  <blue>205</blue>
+  <factor>1</factor>
+  <transparency>true</transparency>
+</Sky>
+<Buildings>
+  <width>1600</width>
+  <height>800</height>
+</Buildings>
+<Buildings>
+  <file>images/nightbuildings1.png</file>
+  <red>193</red>
+  <green>205</green>
+  <blue>205</blue>
+  <factor>2</factor>
+  <transparency>False</transparency>
+</Buildings>
+<Grass>
+  <width>1600</width>
+  <height>800</height>
+</Grass>
+<Grass>
+  <file>images/buildings2.png</file>
+  <red>193</red>
+  <green>205</green>
+  <blue>205</blue>
+  <factor>4</factor>
+  <transparency>false</transparency>
+</Grass>
+<Land>
+  <width>1600</width>
+  <height>800</height>
+</Land>
+<Land>
+  <file>images/road1.png</file>
+  <red>193</red>
+  <green>205</green>
+  <blue>205</blue>
+  <factor>8</factor>
+  <transparency>false</transparency>
+</Land>
+
+<font name="font">
+  <file>font/pirulen.ttf</file>
+  <size>12</size>
+  <red>255</red>
+  <green>255</green>
+  <blue>255</blue>
+  <unused>0</unused>
+</font>
+
+<Transformer>
+  <file>images/aladin.png</file>
+  <startLoc x="0" y="680"/>
+  <frames>20</frames>
+  <frameInterval>150</frameInterval>
+  <speedX>-75</speedX>
+  <speedY>75</speedY>
+  <transparency>true</transparency>
+  <chunk>
+	  <size>9</size>
+	  <distance>200</distance>  
+  </chunk>
+</Transformer>
+
+<Spaceship>
+    <file>images/spaceship.png</file>
+    <startLoc x="0" y="350"/>
+    <frames>1</frames>
+    <frameInterval>150</frameInterval>
+    <speedX>-75</speedX>
+    <speedY>0</speedY>
+    <transparency>true</transparency>
+    <chunk>
+		<size>9</size>
+		<distance>200</distance>  
+    </chunk>
+</Spaceship>
+
+<Hud>
+	<xval>60</xval>
+	<yval>70</yval>
+</Hud>
+
+<redorb>
+  <file>images/meteor.png</file>
+  <cushion>10</cushion>
+  <scale min="0.5" max="1.5"/>
+  <src x="0" y="0"/>
+  <width>32</width>
+  <height>32</height>
+  <loc x="320" y="240"/>
+  <speed x="75" y="150"/>
+  <transparency>true</transparency>
+</redorb>
+</GameData>
