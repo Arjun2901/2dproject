@@ -38,7 +38,7 @@
   <height>800</height>
 </Buildings>
 <Buildings>
-  <file>images/palace2.png</file>
+  <file>images/palace3.png</file>
   <red>193</red>
   <green>205</green>
   <blue>205</blue>
@@ -94,7 +94,7 @@
 </Transformer>
 
 <Spaceship>
-    <file>images/spaceship.png</file>
+    <file>images/genie.png</file>
     <startLoc x="0" y="350"/>
     <frames>1</frames>
     <frameInterval>150</frameInterval>
@@ -109,7 +109,7 @@
 </Hud>
 
 <redorb>
-  <file>images/meteor.png</file>
+  <file>images/apple.png</file>
   <cushion>20</cushion>
   <scale min="0.5" max="1.5"/>
   <src x="0" y="0"/>
