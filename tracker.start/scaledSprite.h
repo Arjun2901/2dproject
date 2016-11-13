@@ -22,6 +22,7 @@ public:
   virtual void update(Uint32 ticks);
   unsigned getPixel(Uint32, Uint32) const;
   float getScale() const { return scale; }
+  void setScale(const float sl) { scale = sl; }
 
   Vector2f getCenter() const { 
     return Vector2f( X()+frame->getWidth()/2, Y()+frame->getHeight()/2 );

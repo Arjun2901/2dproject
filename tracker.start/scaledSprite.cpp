@@ -7,16 +7,17 @@
 ScaledSprite::ScaledSprite(const std::string& name, 
                            SDL_Surface* surface) :
   Drawable(name,
-           Vector2f(Gamedata::getInstance().getXmlInt(name+"/loc/x"), 
-                    Gamedata::getInstance().getXmlInt(name+"/loc/y")), 
-          Vector2f((rand()%2?1:-1)*getRandom(
+           Vector2f((rand()%2?1:1)*getRandom(
+					Gamedata::getInstance().getXmlInt(name+"/loc/x"), 
+                    Gamedata::getInstance().getXmlInt(name+"/loc/y"))), 
+		   Vector2f((rand()%2?1:-1)*getRandom(
                     Gamedata::getInstance().getXmlInt(name+"/cushion"),
                     Gamedata::getInstance().getXmlInt(name+"/speed/x")),
                     (rand()%2?1:-1)*getRandom(
                     Gamedata::getInstance().getXmlInt(name+"/cushion"),
                     Gamedata::getInstance().getXmlInt(name+"/speed/y"))
                    )
-  ), 
+  ),
   scale(getRandFloat(Gamedata::getInstance().getXmlFloat(name+"/scale/min"),
                      Gamedata::getInstance().getXmlFloat(name+"/scale/max"))
   ),
@@ -27,6 +28,7 @@ ScaledSprite::ScaledSprite(const std::string& name,
   worldWidth(Gamedata::getInstance().getXmlInt("world/width")),
   worldHeight(Gamedata::getInstance().getXmlInt("world/height"))
 {
+	velocityY(scale * 100);
 }
 
 ScaledSprite::ScaledSprite(const ScaledSprite& s) :
@@ -75,21 +77,26 @@ unsigned ScaledSprite::getPixel(Uint32 i, Uint32 j) const {
 }
 
 
-void ScaledSprite::update(Uint32 ticks) { 
+void ScaledSprite::update(Uint32 ticks) 
+{
   Vector2f incr = getVelocity() * static_cast<float>(ticks) * 0.001;
   setPosition(getPosition() + incr);
-
+  
+  std::cout << Y() << std::endl;
   if ( Y() < 0) {
     velocityY( abs( velocityY() ) );
   }
   if ( Y() > worldHeight-frameHeight) {
-    velocityY( -abs( velocityY() ) );
+	 float s = 240;
+	 Y(s);
   }
 
   if ( X() < 0) {
     velocityX( abs( velocityX() ) );
   }
   if ( X() > worldWidth-frameWidth) {
-    velocityX( -abs( velocityX() ) );
+    float s = 10;
+	 X(s);
   }  
-}
+} 
+ 

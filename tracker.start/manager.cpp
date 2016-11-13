@@ -42,7 +42,7 @@ Manager::Manager() :
               Gamedata::getInstance().getXmlBool("redorb/transparency")) ),
   Sky("Sky", Gamedata::getInstance().getXmlInt("Sky/factor") ),
   Buildings("Buildings", Gamedata::getInstance().getXmlInt("Buildings/factor") ),
-  Grass("Grass", Gamedata::getInstance().getXmlInt("Grass/factor") ),
+ // Grass("Grass", Gamedata::getInstance().getXmlInt("Grass/factor") ),
   Land("Land", Gamedata::getInstance().getXmlInt("Land/factor") ),
   viewport( Viewport::getInstance() ),
   flag2(false),
@@ -94,11 +94,12 @@ void Manager::draw() const {
   for (unsigned j = orbs.size()/3; j < orbs.size()/2; ++j) {
     orbs[j]->draw();
   }
-  Grass.draw();
+  //Grass.draw();
+  Land.draw(); 
   for (unsigned j = orbs.size()/2; j < (orbs.size()); ++j) {
     orbs[j]->draw();
   }
-  Land.draw(); 
+
   for (unsigned i = 0; i < sprites.size(); ++i) {
     sprites[i]->draw();
   }
@@ -149,7 +150,7 @@ void Manager::update() {
   }
   Sky.update();
   Buildings.update();
-  Grass.update();
+  //Grass.update();
   Land.update();
   viewport.update(); // always update viewport last
 }
