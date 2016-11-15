@@ -8,6 +8,7 @@
 #include "manager.h"
 #include "aaline.h"
 #include "Hud.h"
+#include "health.h"
 #include <cmath>
 #include <algorithm>
 
@@ -86,6 +87,7 @@ void Manager::printOrbs() const {
 
 void Manager::draw() const {
   
+  Health bar;
   Sky.draw();
   for (unsigned j = 0; j < (orbs.size()/3); ++j) {
     orbs[j]->draw();
@@ -110,6 +112,7 @@ void Manager::draw() const {
   }
   io.printMessageAt(title, 10, 450);
   viewport.draw();
+  bar.draw();
 
   SDL_Flip(screen);
 }
@@ -131,6 +134,7 @@ void Manager::switchSprite() {
 
 void Manager::update() {
   ++clock;
+  Health bar;
   Uint32 ticks = clock.getElapsedTicks();
 
   static unsigned int lastSeconds = clock.getSeconds();
@@ -148,6 +152,7 @@ void Manager::update() {
   if ( makeVideo && frameCount < frameMax ) {
     makeFrame();
   }
+  bar.update(ticks);
   Sky.update();
   Buildings.update();
   //Grass.update();
@@ -157,6 +162,7 @@ void Manager::update() {
 
 void Manager::play() {
   SDL_Event event;
+  Health bar;
   bool done = false;
  // bool flag = false;
   
@@ -212,6 +218,11 @@ void Manager::play() {
 		{
 			flag1 = -1;
 		}
+		if (keystate[SDLK_m]) 
+        {
+           bar.reset();
+           break;
+        }
       }
       if(event.type == SDL_KEYUP) 
       {
