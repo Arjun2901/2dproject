@@ -145,4 +145,16 @@
   <speed x="75" y="150"/>
   <transparency>true</transparency>
 </redorb>
+
+<redstar>
+  <file>images/redstar20.png</file>
+  <width>20</width>
+  <height>19</height>
+  <src x="0" y="0"/>
+  <startLoc x="820" y="680"/>
+  <speed x="150" y="150"/>
+   <speedX>-75</speedX>
+    <speedY>0</speedY>
+  <transparency>true</transparency>
+</redstar>
 </GameData>

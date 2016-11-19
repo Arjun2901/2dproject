@@ -8,6 +8,7 @@
 #include "manager.h"
 #include "aaline.h"
 #include "Hud.h"
+#include "health.h"
 #include <cmath>
 #include <algorithm>
 
@@ -44,6 +45,7 @@ Manager::Manager() :
   Buildings("Buildings", Gamedata::getInstance().getXmlInt("Buildings/factor") ),
   Pyramid("Pyramid", Gamedata::getInstance().getXmlInt("Pyramid/factor") ),
   Land("Land", Gamedata::getInstance().getXmlInt("Land/factor") ),
+  player("redstar"),
   viewport( Viewport::getInstance() ),
   flag2(false),
   hud1(),
@@ -88,6 +90,7 @@ void Manager::printOrbs() const {
 
 void Manager::draw() const {
   
+  Health bar;
   Sky.draw();
   for (unsigned j = 0; j < (orbs.size()/3); ++j) {
     orbs[j]->draw();
@@ -98,6 +101,7 @@ void Manager::draw() const {
     orbs[j]->draw();
   }
   Pyramid.draw();
+  player.draw();
   
   for (unsigned j = orbs.size()/2; j < (orbs.size()); ++j) {
     orbs[j]->draw();
@@ -107,13 +111,21 @@ void Manager::draw() const {
     sprites[i]->draw();
   }
   
+  if ( checkForCollisions() ) {
+    io.printMessageAt("*** Oops ***, collision!", 320, 60);
+  }
+  else {
+    io.printMessageAt("No Collision.", 320, 60);
+  }
+  
   if(flag2 || clock.getSeconds() < 4)
   {
 	hud1.drawhud(clock.getSeconds(),clock.getfps());
   }
   io.printMessageAt(title, 10, 450);
   viewport.draw();
-
+  bar.draw();
+  
   SDL_Flip(screen);
 }
 
@@ -132,8 +144,18 @@ void Manager::switchSprite() {
   viewport.setObjectToTrack(sprites[currentSprite]);
 }
 
+bool Manager::checkForCollisions() const {
+  std::vector<Drawable*>::const_iterator sprite = sprites.begin();
+  while ( sprite != sprites.end() ) {
+    if ( player.collidedWith(*sprite) ) return true;
+    ++sprite;
+  }
+  return false;
+}
+
 void Manager::update() {
   ++clock;
+  Health bar;
   Uint32 ticks = clock.getElapsedTicks();
 
   static unsigned int lastSeconds = clock.getSeconds();
@@ -151,6 +173,10 @@ void Manager::update() {
   if ( makeVideo && frameCount < frameMax ) {
     makeFrame();
   }
+  bar.update(ticks);
+  
+  player.update(ticks);
+  player.stop();
   Sky.update();
   Buildings.update();
  // Pyramid.update();
@@ -159,6 +185,8 @@ void Manager::update() {
 }
 
 void Manager::play() {
+  
+  Health bar;
   SDL_Event event;
   bool done = false;
  // bool flag = false;
@@ -189,6 +217,12 @@ void Manager::play() {
           std::cout << "Making video frames" << std::endl;
           makeVideo = true;
         }
+        
+        if (keystate[SDLK_m]) 
+        {
+           bar.reset();
+           break;
+        }
         if(keystate[SDLK_F1]) {
 			 if(!flag2)
 			 { 
@@ -215,6 +249,7 @@ void Manager::play() {
 		{
 			flag1 = -1;
 		}
+		player.setCollisionStrategy(2);
       }
       if(event.type == SDL_KEYUP) 
       {

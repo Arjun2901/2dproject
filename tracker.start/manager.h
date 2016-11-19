@@ -4,6 +4,7 @@
 #include "clock.h"
 #include "world.h"
 #include "viewport.h"
+#include "player.h"
 #include "Hud.h"
 #include "scaledSprite.h"
 
@@ -25,6 +26,7 @@ private:
   World Buildings;
   World Pyramid;
   World Land;
+  Player player;
   Viewport& viewport;
   int flag2;
   Hud hud1;
@@ -38,6 +40,7 @@ private:
   const int frameMax;
 
   void draw() const;
+  bool checkForCollisions() const;
   void update();
   void makeOrbs();
   void printOrbs() const;
