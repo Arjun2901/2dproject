@@ -23,7 +23,7 @@ private:
   SDL_Surface * const orbSurface;
   World Sky;
   World Buildings;
-  //World Grass;
+  World Pyramid;
   World Land;
   Viewport& viewport;
   int flag2;

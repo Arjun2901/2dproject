@@ -8,7 +8,6 @@
 #include "manager.h"
 #include "aaline.h"
 #include "Hud.h"
-#include "health.h"
 #include <cmath>
 #include <algorithm>
 
@@ -43,7 +42,7 @@ Manager::Manager() :
               Gamedata::getInstance().getXmlBool("redorb/transparency")) ),
   Sky("Sky", Gamedata::getInstance().getXmlInt("Sky/factor") ),
   Buildings("Buildings", Gamedata::getInstance().getXmlInt("Buildings/factor") ),
- // Grass("Grass", Gamedata::getInstance().getXmlInt("Grass/factor") ),
+  Pyramid("Pyramid", Gamedata::getInstance().getXmlInt("Pyramid/factor") ),
   Land("Land", Gamedata::getInstance().getXmlInt("Land/factor") ),
   viewport( Viewport::getInstance() ),
   flag2(false),
@@ -66,7 +65,9 @@ Manager::Manager() :
   printOrbs();
   
   sprites.push_back( new TwowayMSprite("Transformer") );
-  sprites.push_back( new Sprite("Spaceship") );
+  sprites.push_back( new Sprite("genie") );
+  sprites.push_back( new MultiSprite("Enemy") );
+  sprites.push_back( new MultiSprite("sword") );
   viewport.setObjectToTrack(sprites[currentSprite]);
 }
 
@@ -87,17 +88,17 @@ void Manager::printOrbs() const {
 
 void Manager::draw() const {
   
-  Health bar;
   Sky.draw();
   for (unsigned j = 0; j < (orbs.size()/3); ++j) {
     orbs[j]->draw();
   }
+  Land.draw(); 
   Buildings.draw();
   for (unsigned j = orbs.size()/3; j < orbs.size()/2; ++j) {
     orbs[j]->draw();
   }
-  //Grass.draw();
-  Land.draw(); 
+  Pyramid.draw();
+  
   for (unsigned j = orbs.size()/2; j < (orbs.size()); ++j) {
     orbs[j]->draw();
   }
@@ -112,7 +113,6 @@ void Manager::draw() const {
   }
   io.printMessageAt(title, 10, 450);
   viewport.draw();
-  bar.draw();
 
   SDL_Flip(screen);
 }
@@ -134,7 +134,6 @@ void Manager::switchSprite() {
 
 void Manager::update() {
   ++clock;
-  Health bar;
   Uint32 ticks = clock.getElapsedTicks();
 
   static unsigned int lastSeconds = clock.getSeconds();
@@ -152,17 +151,15 @@ void Manager::update() {
   if ( makeVideo && frameCount < frameMax ) {
     makeFrame();
   }
-  bar.update(ticks);
   Sky.update();
   Buildings.update();
-  //Grass.update();
+ // Pyramid.update();
   Land.update();
   viewport.update(); // always update viewport last
 }
 
 void Manager::play() {
   SDL_Event event;
-  Health bar;
   bool done = false;
  // bool flag = false;
   
@@ -218,11 +215,6 @@ void Manager::play() {
 		{
 			flag1 = -1;
 		}
-		if (keystate[SDLK_m]) 
-        {
-           bar.reset();
-           break;
-        }
       }
       if(event.type == SDL_KEYUP) 
       {
