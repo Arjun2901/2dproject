@@ -90,23 +90,25 @@
   <speedY>75</speedY>
   <transparency>true</transparency>
   <chunk>
-        <size>9</size>
+        <size>30</size>
         <distance>200</distance>  
   </chunk>
 </Transformer>
 
 <Enemy>
-  <file>images/guard.png</file>
-  <startLoc x="900" y="580"/>
-  <frames>6</frames>
+  <file>images/guardd.png</file>
+  <startLoc x="1500" y="380"/>
+  <endLoc x="500" y="600"/>
+  <frames>12</frames>
   <frameInterval>150</frameInterval>
   <speedX>-75</speedX>
   <speedY>0</speedY>
   <transparency>true</transparency>
   <chunk>
-        <size>9</size>
+        <size>30</size>
         <distance>200</distance>  
   </chunk>
+  <numberofEnemy>2</numberofEnemy>
 </Enemy>
 
 <genie>

@@ -42,6 +42,7 @@ private:
   void draw() const;
   bool checkForCollisions() const;
   void update();
+  void makeEnemy();
   void makeOrbs();
   void printOrbs() const;
 

@@ -1,15 +1,15 @@
-#ifndef TWOWAYMSPRITE__H
-#define TWOWAYMSPRITE__H
+#ifndef ENENMY2MSPRITE__H
+#define ENEMY2MSPRITE__H
 #include <string>
 #include <vector>
 #include "drawable.h"
 
 class ExplodingSprite; 
-class TwowayMSprite : public Drawable {
+class Enemy2Msprite : public Drawable {
 public:
-  TwowayMSprite(const std::string&);
-  TwowayMSprite(const TwowayMSprite&);
-  virtual ~TwowayMSprite() { } 
+  Enemy2Msprite(const std::string&,const Vector2f&,const Vector2f&);
+  Enemy2Msprite(const Enemy2Msprite&);
+  virtual ~Enemy2Msprite() { } 
 
   virtual void draw() const;
   virtual void update(Uint32 ticks);
@@ -32,6 +32,6 @@ protected:
 
   void advanceFrame(Uint32 ticks);
   void flipImage(Uint32 ticks);
-  TwowayMSprite& operator=(const TwowayMSprite& rhs);
+  Enemy2Msprite& operator=(const Enemy2Msprite& rhs);
 };
 #endif

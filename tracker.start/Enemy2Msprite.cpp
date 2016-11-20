@@ -1,26 +1,43 @@
-#include "multisprite.h"
+#include "Enemy2Msprite.h"
 #include "gamedata.h"
 #include "frameFactory.h"
+#include <iostream>
+#include <string>
+#include <iomanip>
+#include "sprite.h"
 #include "explodingSprite.h"
-void MultiSprite::advanceFrame(Uint32 ticks) {
+
+void Enemy2Msprite::advanceFrame(Uint32 ticks) {
 	timeSinceLastFrame += ticks;
-	if (timeSinceLastFrame > frameInterval) {
-    currentFrame = (currentFrame+1) % numberOfFrames;
-		timeSinceLastFrame = 0;
+	unsigned int mid = numberOfFrames/2;
+	if (timeSinceLastFrame > frameInterval) 
+	{
+        if(velocityX() > 0)
+        {
+            currentFrame = (currentFrame+1) % mid;
+        }
+        else 
+        {
+            if(currentFrame > mid)
+            {
+                currentFrame =  (currentFrame+1) % numberOfFrames;
+            }
+            if(currentFrame < mid)
+            {
+                currentFrame = (currentFrame + mid + 1) % numberOfFrames;
+            }
+        }
+        timeSinceLastFrame = 0;
 	}
 }
 
-MultiSprite::MultiSprite( const std::string& name) :
-  Drawable(name, 
-           Vector2f(Gamedata::getInstance().getXmlInt(name+"/startLoc/x"), 
-                    Gamedata::getInstance().getXmlInt(name+"/startLoc/y")), 
-           Vector2f(Gamedata::getInstance().getXmlInt(name+"/speedX"),
-                    Gamedata::getInstance().getXmlInt(name+"/speedY"))
-           ),
+
+Enemy2Msprite::Enemy2Msprite( const std::string& name, const Vector2f &pos, const Vector2f &vel) :
+  Drawable(name, pos, vel),
   explosion(NULL),
   frames( FrameFactory::getInstance().getFrames(name) ),
-  worldWidth(Gamedata::getInstance().getXmlInt("world/width")),
-  worldHeight(Gamedata::getInstance().getXmlInt("world/height")),
+  worldWidth(Gamedata::getInstance().getXmlInt("Sky/width")),
+  worldHeight(Gamedata::getInstance().getXmlInt("Sky/height")),
 
   currentFrame(0),
   numberOfFrames( Gamedata::getInstance().getXmlInt(name+"/frames") ),
@@ -30,9 +47,9 @@ MultiSprite::MultiSprite( const std::string& name) :
   frameHeight(frames[0]->getHeight())
 { }
 
-MultiSprite::MultiSprite(const MultiSprite& s) :
-  Drawable(s),
-  explosion(NULL), 
+Enemy2Msprite::Enemy2Msprite(const Enemy2Msprite& s) :
+  Drawable(s), 
+  explosion(NULL),
   frames(s.frames),
   worldWidth( s.worldWidth ),
   worldHeight( s.worldHeight ),
@@ -44,21 +61,22 @@ MultiSprite::MultiSprite(const MultiSprite& s) :
   frameHeight( s.frameHeight )
   { }
 
-void MultiSprite::explode(){
+
+void Enemy2Msprite::explode(){
 	if(explosion) return;
 	explosion = new ExplodingSprite(Sprite(getName(), getPosition(), getVelocity(), frames[currentFrame]));
 }	
-
-void MultiSprite::draw() const {
+void Enemy2Msprite::draw() const { 
 	if (explosion){
 		explosion->draw();
 		return;
-	} 
+	}
   Uint32 x = static_cast<Uint32>(X());
   Uint32 y = static_cast<Uint32>(Y());
   frames[currentFrame]->draw(x, y);
 }
-void MultiSprite::update(Uint32 ticks) {
+
+void Enemy2Msprite::update(Uint32 ticks) { 
   advanceFrame(ticks);
 if (explosion){
 		explosion->update(ticks);

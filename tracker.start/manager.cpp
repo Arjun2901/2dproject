@@ -3,6 +3,7 @@
 #include <iomanip>
 #include "multisprite.h"
 #include "twowayMsprite.h"
+#include "Enemy2Msprite.h"
 #include "sprite.h"
 #include "gamedata.h"
 #include "manager.h"
@@ -68,11 +69,30 @@ Manager::Manager() :
   
   sprites.push_back( new TwowayMSprite("Transformer") );
   sprites.push_back( new Sprite("genie") );
-  sprites.push_back( new MultiSprite("Enemy") );
+  //sprites.push_back( new MultiSprite("Enemy") );
+  
+  makeEnemy();
   sprites.push_back( new MultiSprite("sword") );
   viewport.setObjectToTrack(sprites[currentSprite]);
 }
 
+void Manager::makeEnemy(){
+	std::string name = "Enemy";
+	unsigned numberofEnemy = Gamedata::getInstance().getXmlInt("Enemy/numberofEnemy");
+	std::cout << "------------------Enemy-" << numberofEnemy << std::endl;
+	Enemy2Msprite *enemies = NULL;
+	Vector2f vel(Gamedata::getInstance().getXmlFloat("Enemy/speedX"),Gamedata::getInstance().getXmlFloat("Enemy/speedY"));
+	for(unsigned int i=0; i < numberofEnemy; i++)
+	{
+		Vector2f pos(Gamedata::getInstance().getRandFloat(Gamedata::getInstance().getXmlInt(name+"/startLoc/x"),Gamedata::getInstance().getXmlInt(name+"/endLoc/x")),
+		Gamedata::getInstance().getRandFloat(Gamedata::getInstance().getXmlInt(name+"/endLoc/x"),Gamedata::getInstance().getXmlInt(name+"/endLoc/y")));
+		
+		enemies = new Enemy2Msprite(name,pos,vel);
+		sprites.push_back(enemies);
+	}
+	
+	
+}
 void Manager::makeOrbs() {
   unsigned numberOfOrbs = Gamedata::getInstance().getXmlInt("numberOfOrbs");
   orbs.reserve( numberOfOrbs );
@@ -113,6 +133,8 @@ void Manager::draw() const {
   
   if ( checkForCollisions() ) {
     io.printMessageAt("*** Oops ***, collision!", 320, 60);
+    
+    sprites[2]->explode();
   }
   else {
     io.printMessageAt("No Collision.", 320, 60);
@@ -203,9 +225,9 @@ void Manager::play() {
         if ( keystate[SDLK_t] ) {
           switchSprite();
         }
-        if ( keystate[SDLK_1] ) {
+       /* if ( keystate[SDLK_1] ) {
 		  sprites[0]->explode();
-        }
+        }*/
         if ( keystate[SDLK_i] ) {
           clock.toggleSloMo();
         }
