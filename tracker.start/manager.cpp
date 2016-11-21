@@ -70,10 +70,11 @@ Manager::Manager() :
   printOrbs();
   
   //sprites.push_back( new playerMsprite("Aladin") );
-  sprites.push_back( new Sprite("genie") );
+ 
   //sprites.push_back( new MultiSprite("Enemy") );
   
   makeEnemy();
+  sprites.push_back( new Sprite("genie") );
   sprites.push_back( new MultiSprite("sword") );
   viewport.setObjectToTrack(sprites[currentSprite]);
 }
@@ -90,8 +91,11 @@ void Manager::makeEnemy(){
 		Gamedata::getInstance().getRandFloat(Gamedata::getInstance().getXmlInt(name+"/endLoc/x"),Gamedata::getInstance().getXmlInt(name+"/endLoc/y")));
 		
 		enemies = new Enemy2Msprite(name,pos,vel);
-		sprites.push_back(enemies);
+		sprites.push_back(enemies);	
+		std::cout<<sprites[i]<<"i======"<<i<<std::endl;
+	//	std::cout<<sprites[1]<<i<<std::endl;
 	}
+		
 	
 	
 }
@@ -125,15 +129,15 @@ void Manager::draw() const {
     orbs[j]->draw();
   }
 
-  player.draw();
+  
   for (unsigned i = 0; i < sprites.size(); ++i) {
     sprites[i]->draw();
   }
-  
+  player.draw();
   if ( checkForCollisions() ) {
     io.printMessageAt("*** Oops ***, collision!", 320, 60);
     
-    sprites[2]->explode();
+    //sprites[2]->explode();
   }
   else {
     io.printMessageAt("No Collision.", 320, 60);
@@ -160,7 +164,7 @@ void Manager::makeFrame() {
 }
 
 void Manager::switchSprite() {
-  currentSprite = (currentSprite+1) % sprites.size();
+  //currentSprite = (currentSprite+1) % sprites.size();
   viewport.setObjectToTrack(&player);
 }
 
@@ -170,18 +174,20 @@ bool Manager::checkForCollisions() const {
     if ( player.collidedWith(*sprite) ) return true;
     ++sprite;
   }*/
-  for(unsigned int i=1; i < numberofEnemy; i++)
+  unsigned numberofEnemy = Gamedata::getInstance().getXmlInt("Enemy/numberofEnemy");
+  for(unsigned int i=0; i < numberofEnemy; i++)
   {
-	  if ( player.collidedWith(sprites[i]) ) return true;
+	  if ( player.collidedWith(sprites[i]) ) {
+	  sprites[i]->explode();
+	  return true;
   }
-  //
-
+  }
   return false;
 }
 
 void Manager::update() {
   ++clock;
-
+  viewport.setObjectToTrack(&player);
   Uint32 ticks = clock.getElapsedTicks();
 
   static unsigned int lastSeconds = clock.getSeconds();

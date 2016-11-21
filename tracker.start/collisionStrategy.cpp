@@ -5,8 +5,7 @@
 #include "viewport.h"
 
 void RectangularCollisionStrategy::draw() const {
-  IOManager::
-  getInstance().printMessageAt("Strategy: Rectangular Collision", 320, 30);
+  //IOManager::getInstance().printMessageAt("Strategy: Rectangular Collision", 320, 30);
 }
 
 bool RectangularCollisionStrategy::execute(
@@ -34,8 +33,7 @@ distance(float x1, float y1, float x2, float y2) const {
 }
 
 void MidPointCollisionStrategy::draw() const {
-  IOManager::
-  getInstance().printMessageAt("Strategy: Distance from Middle", 320, 30);
+//  IOManager::getInstance().printMessageAt("Strategy: Distance from Middle", 320, 30);
 }
 
 bool MidPointCollisionStrategy::execute(
@@ -50,8 +48,7 @@ bool MidPointCollisionStrategy::execute(
 }
 
 void PerPixelCollisionStrategy::draw() const {
-  IOManager::
-  getInstance().printMessageAt("Strategy: Per-Pixel Collision", 320, 30);
+  //IOManager::getInstance().printMessageAt("Strategy: Per-Pixel Collision", 320, 30);
 }
 
 // The next function was contributed by Mike Kabbani.

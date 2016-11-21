@@ -10,7 +10,7 @@ class Health {
 public:
   Health();
   Health(int sx, int sy, int tl, int cl, 
-         float t, int inc, Uint32 c, float sp);
+         float t, float inc, Uint32 c, float sp);
   void draw() const;
   void update();
   void reset() { currentLength = totalLength; }
@@ -20,7 +20,7 @@ private:
   int totalLength;
   int currentLength;
   int thick;
-  int increments;
+  float increments;
   float interval;
   int deltaTime;
   const Uint32 RED;

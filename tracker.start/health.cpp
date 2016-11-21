@@ -6,7 +6,7 @@ Health::Health() :
   totalLength(150), 
   currentLength(150), 
   thick(8), 
-  increments(1),
+  increments(0.1),
   interval(1000),
   deltaTime(0),
   RED( SDL_MapRGB(screen->format, 0xff, 0x00, 0x00) ),
@@ -17,7 +17,7 @@ Health::Health() :
 }
 
 Health::Health(int sx, int sy, int tl, int cl,
-               float t, int inc, Uint32 c, float sp):
+               float t, float inc, Uint32 c, float sp):
   screen(IOManager::getInstance().getScreen()),
   start(Vector2f(sx, sy)), 
   totalLength(tl), 
