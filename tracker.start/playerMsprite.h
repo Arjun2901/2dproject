@@ -21,7 +21,10 @@ public:
   virtual const Frame* getFrame() const { 
     return frames[currentFrame]; 
   }
-  bool collidedWith(const Drawable*);
+  bool collidedWith(const Drawable* d) const
+  {
+	  return strategy->execute(*this, *d);
+  }
   void setCollisionStrategy(int index) {
     strategy = strategies[index];
   }

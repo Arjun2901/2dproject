@@ -165,12 +165,16 @@ void Manager::switchSprite() {
 }
 
 bool Manager::checkForCollisions() const {
- /* std::vector<Drawable*>::const_iterator sprite = sprites.begin();
+  /*std::vector<Drawable*>::const_iterator sprite = sprites.begin();
   while ( sprite != sprites.end() ) {
     if ( player.collidedWith(*sprite) ) return true;
     ++sprite;
   }*/
-  //if ( player.collidedWith(sprites[1]) ) return true;
+  for(unsigned int i=1; i < numberofEnemy; i++)
+  {
+	  if ( player.collidedWith(sprites[i]) ) return true;
+  }
+  //
 
   return false;
 }
@@ -274,7 +278,7 @@ void Manager::play() {
 		{
 			flag1 = -1;
 		}
-		//sprites[0]->setCollisionStrategy(2);
+		player.setCollisionStrategy(2);
 		
 
       }

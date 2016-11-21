@@ -43,7 +43,7 @@ public:
   const Vector2f& getPosition() const   { return position; }
   void setPosition(const Vector2f& pos) { position = pos;  }
 
-  virtual bool collidedWith(const Drawable*)  { 
+  virtual bool collidedWith(const Drawable*) const { 
     throw std::string("No collidedWith");  
   }
   virtual void explode(){

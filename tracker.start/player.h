@@ -19,9 +19,9 @@ public:
   float getX() const { return player.X(); }
   float getY() const { return player.Y(); }
 
-  bool collidedWith(const Drawable* d) const {
+  /*bool collidedWith(const Drawable* d) const {
     return strategy->execute(player, *d);
-  }
+  }*/
   void setCollisionStrategy(int index) {
     strategy = strategies[index];
   }
