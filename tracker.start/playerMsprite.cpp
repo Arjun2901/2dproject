@@ -9,6 +9,12 @@
 
 extern int flag;
 extern int flag1;
+
+playerMsprite::~playerMsprite() {
+  for (unsigned i = 0; i < strategies.size(); ++i) {
+    delete strategies[i];
+  }
+}
 void playerMsprite::advanceFrame(Uint32 ticks) {
 	timeSinceLastFrame += ticks;
 	unsigned int mid = numberOfFrames/2;
@@ -53,14 +59,20 @@ playerMsprite::playerMsprite( const std::string& name) :
   frames( FrameFactory::getInstance().getFrames(name) ),
   worldWidth(Gamedata::getInstance().getXmlInt("Sky/width")),
   worldHeight(Gamedata::getInstance().getXmlInt("Sky/height")),
-
   currentFrame(0),
   numberOfFrames( Gamedata::getInstance().getXmlInt(name+"/frames") ),
   frameInterval( Gamedata::getInstance().getXmlInt(name+"/frameInterval") ),
   timeSinceLastFrame( 0 ),
   frameWidth(frames[0]->getWidth()),
-  frameHeight(frames[0]->getHeight())
-{ }
+  frameHeight(frames[0]->getHeight()),
+  strategies(),
+  strategy( NULL )  
+{ 
+  strategies.push_back( new MidPointCollisionStrategy );
+  strategies.push_back( new RectangularCollisionStrategy );
+  strategies.push_back( new PerPixelCollisionStrategy );
+  strategy = strategies[0];
+	}
 
 playerMsprite::playerMsprite( const std::string& name, const Vector2f &pos, const Vector2f &vel) :
   Drawable(name, pos, vel),
@@ -68,14 +80,21 @@ playerMsprite::playerMsprite( const std::string& name, const Vector2f &pos, cons
   frames( FrameFactory::getInstance().getFrames(name) ),
   worldWidth(Gamedata::getInstance().getXmlInt("Sky/width")),
   worldHeight(Gamedata::getInstance().getXmlInt("Sky/height")),
-
   currentFrame(0),
   numberOfFrames( Gamedata::getInstance().getXmlInt(name+"/frames") ),
   frameInterval( Gamedata::getInstance().getXmlInt(name+"/frameInterval") ),
   timeSinceLastFrame( 0 ),
   frameWidth(frames[0]->getWidth()),
-  frameHeight(frames[0]->getHeight())
-{ }
+  frameHeight(frames[0]->getHeight()),
+  strategies(),
+  strategy( NULL ) 
+{
+	 
+  strategies.push_back( new MidPointCollisionStrategy );
+  strategies.push_back( new RectangularCollisionStrategy );
+  strategies.push_back( new PerPixelCollisionStrategy );
+  strategy = strategies[0];
+}
 
 playerMsprite::playerMsprite(const playerMsprite& s) :
   Drawable(s), 
@@ -88,19 +107,27 @@ playerMsprite::playerMsprite(const playerMsprite& s) :
   frameInterval( s.frameInterval ),
   timeSinceLastFrame( s.timeSinceLastFrame ),
   frameWidth( s.frameWidth ),
-  frameHeight( s.frameHeight )
+  frameHeight( s.frameHeight ),
+  strategies(),
+  strategy( NULL )
   { }
 
+bool playerMsprite::collidedWith(const Drawable* d)  {
+	return true;
+    //return strategy->execute(player, *d);
+  }
 
 void playerMsprite::explode(){
 	if(explosion) return;
 	explosion = new ExplodingSprite(Sprite(getName(), getPosition(), getVelocity(), frames[currentFrame]));
 }	
-void playerMsprite::draw() const { 
+void playerMsprite::draw() const {
+	strategy->draw(); 
 	if (explosion){
 		explosion->draw();
 		return;
 	}
+  
   Uint32 x = static_cast<Uint32>(X());
   Uint32 y = static_cast<Uint32>(Y());
   frames[currentFrame]->draw(x, y);

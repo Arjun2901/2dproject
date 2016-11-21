@@ -1,15 +1,20 @@
+#ifndef HEALTH__H
+#define HEALTH__H
+
 #include "vector2f.h"
 #include "ioManager.h"
 #include "aaline.h"
+#include "playerMsprite.h"
 
-class Health {
+class Health: public playerMsprite {
 public:
   Health();
   Health(int sx, int sy, int tl, int cl, 
          float t, int inc, Uint32 c, float sp);
   void draw() const;
-  void update(Uint32);
+  void update();
   void reset() { currentLength = totalLength; }
+  bool collidedWith(const Drawable* d);
 private:
   SDL_Surface* screen;
   Vector2f start;
@@ -26,4 +31,6 @@ private:
   void drawBox() const;
   Health(const Health&);
   Health& operator=(const Health&);
+  playerMsprite player;
 };
+#endif

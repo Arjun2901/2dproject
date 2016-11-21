@@ -47,10 +47,11 @@ Manager::Manager() :
   Buildings("Buildings", Gamedata::getInstance().getXmlInt("Buildings/factor") ),
   Pyramid("Pyramid", Gamedata::getInstance().getXmlInt("Pyramid/factor") ),
   Land("Land", Gamedata::getInstance().getXmlInt("Land/factor") ),
-  player("redstar"),
+  player("Transformer"),
   viewport( Viewport::getInstance() ),
   flag2(false),
   hud1(),
+  bar(),
   currentSprite(0),
   sprites(),
   orbs(),
@@ -68,7 +69,7 @@ Manager::Manager() :
   makeOrbs();
   printOrbs();
   
-  sprites.push_back( new playerMsprite("Transformer") );
+ // sprites.push_back( new playerMsprite("Transformer") );
   sprites.push_back( new Sprite("genie") );
   //sprites.push_back( new MultiSprite("Enemy") );
   
@@ -110,8 +111,6 @@ void Manager::printOrbs() const {
 }
 
 void Manager::draw() const {
-  
-  Health bar;
   Sky.draw();
   for (unsigned j = 0; j < (orbs.size()/3); ++j) {
     orbs[j]->draw();
@@ -122,7 +121,6 @@ void Manager::draw() const {
     orbs[j]->draw();
   }
   Pyramid.draw();
-  player.draw();
   
   for (unsigned j = orbs.size()/2; j < (orbs.size()); ++j) {
     orbs[j]->draw();
@@ -168,17 +166,19 @@ void Manager::switchSprite() {
 }
 
 bool Manager::checkForCollisions() const {
-  std::vector<Drawable*>::const_iterator sprite = sprites.begin();
+ /* std::vector<Drawable*>::const_iterator sprite = sprites.begin();
   while ( sprite != sprites.end() ) {
     if ( player.collidedWith(*sprite) ) return true;
     ++sprite;
-  }
+  }*/
+  if ( player.collidedWith(sprites[1]) ) return true;
+
   return false;
 }
 
 void Manager::update() {
   ++clock;
-  Health bar;
+
   Uint32 ticks = clock.getElapsedTicks();
 
   static unsigned int lastSeconds = clock.getSeconds();
@@ -196,10 +196,12 @@ void Manager::update() {
   if ( makeVideo && frameCount < frameMax ) {
     makeFrame();
   }
-  bar.update(ticks);
-  
-  player.update(ticks);
-  player.stop();
+   if(checkForCollisions()){   
+  bar.update();
+  bar.draw();
+  SDL_Flip(screen);
+}
+ 
   Sky.update();
   Buildings.update();
  // Pyramid.update();
@@ -209,7 +211,7 @@ void Manager::update() {
 
 void Manager::play() {
   
-  Health bar;
+  
   SDL_Event event;
   bool done = false;
  // bool flag = false;
@@ -241,7 +243,7 @@ void Manager::play() {
           makeVideo = true;
         }
         
-        if (keystate[SDLK_m]) 
+        if (keystate[SDLK_r]) 
         {
            bar.reset();
            break;
@@ -273,6 +275,8 @@ void Manager::play() {
 			flag1 = -1;
 		}
 		player.setCollisionStrategy(2);
+		
+
       }
       if(event.type == SDL_KEYUP) 
       {

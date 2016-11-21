@@ -1,3 +1,5 @@
+#ifndef COLLISIONSTRATEGY__H
+#define COLLISIONSTRATEGY__H
 #include <cmath>
 #include "drawable.h"
 
@@ -31,4 +33,4 @@ public:
 private:
   bool isVisible(Uint32, SDL_Surface*) const;
 };
-
+#endif

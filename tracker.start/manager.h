@@ -7,6 +7,8 @@
 #include "player.h"
 #include "Hud.h"
 #include "scaledSprite.h"
+#include "playerMsprite.h"
+#include "health.h"
 
 class Manager {
 public:
@@ -26,10 +28,11 @@ private:
   World Buildings;
   World Pyramid;
   World Land;
-  Player player;
+  playerMsprite player;
   Viewport& viewport;
   int flag2;
   Hud hud1;
+  Health bar;
   int currentSprite;
   std::vector<Drawable*> sprites;
   std::vector<ScaledSprite*> orbs;

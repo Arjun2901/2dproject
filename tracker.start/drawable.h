@@ -43,11 +43,15 @@ public:
   const Vector2f& getPosition() const   { return position; }
   void setPosition(const Vector2f& pos) { position = pos;  }
 
-  virtual bool collidedWith(const Drawable*) const { 
+  virtual bool collidedWith(const Drawable*)  { 
     throw std::string("No collidedWith");  
   }
   virtual void explode(){
 	  throw std::string("I cant explode");
+  }
+  
+  virtual void setCollisionStrategy(int index) const { 
+    throw std::string("set collision strategy");  
   }
 private:
   std::string name;
