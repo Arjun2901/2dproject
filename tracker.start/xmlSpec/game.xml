@@ -39,11 +39,11 @@
 </Buildings>
 
 <Buildings>
-  <file>images/pyra1.png</file>
+  <file>images/pyra11.png</file>
   <red>193</red>
   <green>205</green>
   <blue>205</blue>
-  <factor>2</factor>
+  <factor>4</factor>
   <transparency>true</transparency>
 </Buildings>
 <Pyramid>
@@ -64,7 +64,7 @@
   <height>800</height>
 </Land>
 <Land>
-  <file>images/desert2.png</file>
+  <file>images/desert.png</file>
   <red>193</red>
   <green>205</green>
   <blue>205</blue>

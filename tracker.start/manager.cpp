@@ -119,12 +119,13 @@ void Manager::draw() const {
   for (unsigned j = 0; j < (orbs.size()/3); ++j) {
     orbs[j]->draw();
   }
-  Land.draw(); 
+  Pyramid.draw();
   Buildings.draw();
+  Land.draw(); 
   for (unsigned j = orbs.size()/3; j < orbs.size()/2; ++j) {
     orbs[j]->draw();
   }
-  Pyramid.draw();
+  
   for (unsigned j = orbs.size()/2; j < (orbs.size()); ++j) {
     orbs[j]->draw();
   }
@@ -213,8 +214,8 @@ void Manager::update() {
   player.update(ticks);
  
   Sky.update();
+  Pyramid.update();
   Buildings.update();
- // Pyramid.update();
   Land.update();
   viewport.update(); // always update viewport last
 }
