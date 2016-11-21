@@ -112,7 +112,7 @@ playerMsprite::playerMsprite(const playerMsprite& s) :
   strategy( NULL )
   { }
 
-bool playerMsprite::collidedWith(const Drawable* d)  {
+bool playerMsprite::collidedWith(const Drawable* d){
 	return true;
     //return strategy->execute(player, *d);
   }

@@ -12,8 +12,8 @@ Health::Health() :
   RED( SDL_MapRGB(screen->format, 0xff, 0x00, 0x00) ),
   GRAY( SDL_MapRGB(screen->format, 0xce, 0xb4, 0xb4) ),
   BLACK( SDL_MapRGB(screen->format, 0x00, 0x00, 0x00) ),
-  color(RED),
-  player("Transformer") {
+  color(RED)
+{
 }
 
 Health::Health(int sx, int sy, int tl, int cl,
@@ -29,8 +29,8 @@ Health::Health(int sx, int sy, int tl, int cl,
   RED( SDL_MapRGB(screen->format, 0xff, 0x00, 0x00) ),
   GRAY( SDL_MapRGB(screen->format, 0xff, 0xff, 0xff) ),
   BLACK( SDL_MapRGB(screen->format, 0x00, 0x00, 0x00) ),
-    color(c),
-  player("Transformer") {
+  color(c)
+{
 }
 
 void Health::drawBox() const {
@@ -65,8 +65,3 @@ void Health::update() {
   }
   
 }
-
-bool Health::collidedWith(const Drawable* d)  {
-	//return true;
-    return player.strategy->execute(player, *d);
-  }

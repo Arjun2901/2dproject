@@ -21,7 +21,7 @@ public:
   virtual const Frame* getFrame() const { 
     return frames[currentFrame]; 
   }
-  bool collidedWith(const Drawable*) ;
+  bool collidedWith(const Drawable*);
   void setCollisionStrategy(int index) {
     strategy = strategies[index];
   }
@@ -29,7 +29,6 @@ public:
 protected:
   ExplodingSprite* explosion;
   const std::vector<Frame *> frames;
-  //playerMsprite player;
   int worldWidth;
   int worldHeight;
   unsigned currentFrame;

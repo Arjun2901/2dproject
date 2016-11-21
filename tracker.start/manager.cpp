@@ -69,7 +69,7 @@ Manager::Manager() :
   makeOrbs();
   printOrbs();
   
- // sprites.push_back( new playerMsprite("Transformer") );
+  //sprites.push_back( new playerMsprite("Transformer") );
   sprites.push_back( new Sprite("genie") );
   //sprites.push_back( new MultiSprite("Enemy") );
   
@@ -121,11 +121,11 @@ void Manager::draw() const {
     orbs[j]->draw();
   }
   Pyramid.draw();
-  
   for (unsigned j = orbs.size()/2; j < (orbs.size()); ++j) {
     orbs[j]->draw();
   }
 
+  player.draw();
   for (unsigned i = 0; i < sprites.size(); ++i) {
     sprites[i]->draw();
   }
@@ -146,7 +146,6 @@ void Manager::draw() const {
   io.printMessageAt(title, 10, 450);
   viewport.draw();
   bar.draw();
-  
   SDL_Flip(screen);
 }
 
@@ -162,7 +161,7 @@ void Manager::makeFrame() {
 
 void Manager::switchSprite() {
   currentSprite = (currentSprite+1) % sprites.size();
-  viewport.setObjectToTrack(sprites[currentSprite]);
+  viewport.setObjectToTrack(&player);
 }
 
 bool Manager::checkForCollisions() const {
@@ -171,7 +170,7 @@ bool Manager::checkForCollisions() const {
     if ( player.collidedWith(*sprite) ) return true;
     ++sprite;
   }*/
-  if ( player.collidedWith(sprites[1]) ) return true;
+  //if ( player.collidedWith(sprites[1]) ) return true;
 
   return false;
 }
@@ -201,6 +200,7 @@ void Manager::update() {
   bar.draw();
   SDL_Flip(screen);
 }
+  player.update(ticks);
  
   Sky.update();
   Buildings.update();
@@ -274,7 +274,7 @@ void Manager::play() {
 		{
 			flag1 = -1;
 		}
-		player.setCollisionStrategy(2);
+		//sprites[0]->setCollisionStrategy(2);
 		
 
       }

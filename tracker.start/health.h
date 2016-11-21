@@ -6,7 +6,7 @@
 #include "aaline.h"
 #include "playerMsprite.h"
 
-class Health: public playerMsprite {
+class Health {
 public:
   Health();
   Health(int sx, int sy, int tl, int cl, 
@@ -14,7 +14,6 @@ public:
   void draw() const;
   void update();
   void reset() { currentLength = totalLength; }
-  bool collidedWith(const Drawable* d);
 private:
   SDL_Surface* screen;
   Vector2f start;
@@ -31,6 +30,5 @@ private:
   void drawBox() const;
   Health(const Health&);
   Health& operator=(const Health&);
-  playerMsprite player;
 };
 #endif
