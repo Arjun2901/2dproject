@@ -82,7 +82,6 @@ void ScaledSprite::update(Uint32 ticks)
   Vector2f incr = getVelocity() * static_cast<float>(ticks) * 0.001;
   setPosition(getPosition() + incr);
   
-  std::cout << Y() << std::endl;
   if ( Y() < 0) {
     velocityY( abs( velocityY() ) );
   }

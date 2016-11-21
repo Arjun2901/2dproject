@@ -4,6 +4,7 @@
 #include "multisprite.h"
 #include "twowayMsprite.h"
 #include "Enemy2Msprite.h"
+#include "playerMsprite.h"
 #include "sprite.h"
 #include "gamedata.h"
 #include "manager.h"
@@ -67,7 +68,7 @@ Manager::Manager() :
   makeOrbs();
   printOrbs();
   
-  sprites.push_back( new TwowayMSprite("Transformer") );
+  sprites.push_back( new playerMsprite("Transformer") );
   sprites.push_back( new Sprite("genie") );
   //sprites.push_back( new MultiSprite("Enemy") );
   
