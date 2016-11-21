@@ -2,7 +2,7 @@
 <GameData>
 <!-- screenTitle is also used to identify you and your animation. 
      So make sure to include your name as part of the screenTitle -->
-<screenTitle>Bhavya and Arjun - Transformers!</screenTitle>
+<screenTitle>Bhavya and Arjun - Aladin!</screenTitle>
 <maxStringSize>60</maxStringSize>
 
 <frameCap>60</frameCap>
@@ -81,7 +81,7 @@
   <unused>0</unused>
 </font>
 
-<Transformer>
+<Aladin>
   <file>images/aladin.png</file>
   <startLoc x="0" y="680"/>
   <frames>20</frames>
@@ -93,12 +93,12 @@
         <size>30</size>
         <distance>200</distance>  
   </chunk>
-</Transformer>
+</Aladin>
 
 <Enemy>
   <file>images/guardd.png</file>
-  <startLoc x="1500" y="380"/>
-  <endLoc x="500" y="600"/>
+  <startLoc x="1500" y="580"/>
+  <endLoc x="500" y="700"/>
   <frames>12</frames>
   <frameInterval>150</frameInterval>
   <speedX>-75</speedX>
@@ -132,7 +132,7 @@
 </sword>
 
 <Hud>
-	<xval>60</xval>
+	<xval>20</xval>
 	<yval>70</yval>
 </Hud>
 

@@ -2,10 +2,10 @@
 
 Health::Health() :
   screen(IOManager::getInstance().getScreen()),
-  start(Vector2f(20, 100)), 
-  totalLength(200), 
-  currentLength(200), 
-  thick(14), 
+  start(Vector2f(620, 100)), 
+  totalLength(150), 
+  currentLength(150), 
+  thick(8), 
   increments(1),
   interval(1000),
   deltaTime(0),
@@ -38,18 +38,18 @@ void Health::drawBox() const {
                       start[0]+totalLength, start[1], 
                       thick, GRAY);
   // Two Horizontal lines
-  Draw_AALine(screen, start[0], start[1]-8, 
-                      start[0]+totalLength, start[1]-8, 
+  Draw_AALine(screen, start[0], start[1]-6, 
+                      start[0]+totalLength, start[1]-6, 
                       1.0, BLACK);
-  Draw_AALine(screen, start[0], start[1]+8, 
-                      start[0]+totalLength, start[1]+8, 
+  Draw_AALine(screen, start[0], start[1]+6, 
+                      start[0]+totalLength, start[1]+6, 
                       1.0, BLACK);
   // Two Vertical lines
-  Draw_AALine(screen, start[0]-1, start[1]-8, 
-                      start[0]-1, start[1]+8, 
+  Draw_AALine(screen, start[0]-1, start[1]-6, 
+                      start[0]-1, start[1]+6, 
                       2.0, BLACK);
-  Draw_AALine(screen, start[0]+totalLength+1, start[1]-8, 
-                      start[0]+totalLength+1, start[1]+8, 
+  Draw_AALine(screen, start[0]+totalLength+1, start[1]-6, 
+                      start[0]+totalLength+1, start[1]+6, 
                       2.0, BLACK);
 }
 

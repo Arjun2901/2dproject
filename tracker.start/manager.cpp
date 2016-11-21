@@ -47,7 +47,7 @@ Manager::Manager() :
   Buildings("Buildings", Gamedata::getInstance().getXmlInt("Buildings/factor") ),
   Pyramid("Pyramid", Gamedata::getInstance().getXmlInt("Pyramid/factor") ),
   Land("Land", Gamedata::getInstance().getXmlInt("Land/factor") ),
-  player("Transformer"),
+  player("Aladin"),
   viewport( Viewport::getInstance() ),
   flag2(false),
   hud1(),
@@ -69,7 +69,7 @@ Manager::Manager() :
   makeOrbs();
   printOrbs();
   
-  //sprites.push_back( new playerMsprite("Transformer") );
+  //sprites.push_back( new playerMsprite("Aladin") );
   sprites.push_back( new Sprite("genie") );
   //sprites.push_back( new MultiSprite("Enemy") );
   
