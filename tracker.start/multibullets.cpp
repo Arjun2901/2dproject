@@ -58,7 +58,7 @@ void multibullets::update(Uint32 ticks, const Vector2f& pPos) {
   while (ptr != bulletlist.end()) {
     (*ptr).update(ticks, pPos);
     if ((*ptr).goneTooFar()) { 
-		std::cout << "went too far" << std::endl;
+
 	   // Check to see if we should free a chunk
         freelist.push_back(*ptr);
         ptr = bulletlist.erase(ptr);

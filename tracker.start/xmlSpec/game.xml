@@ -125,15 +125,15 @@
     <file>images/sword.png</file>
     <startLoc x="50" y="680"/>
     <frames>1</frames>
-    <frameInterval>150</frameInterval>
-    <speedX>-105</speedX>
+    <frameInterval>250</frameInterval>
+    <speedX>-45</speedX>
     <speedY>0</speedY>
     <transparency>true</transparency>
 </sword>
 
 <Hud>
 	<xval>20</xval>
-	<yval>70</yval>
+	<yval>25</yval>
 </Hud>
 
 <redorb>
@@ -155,16 +155,16 @@
   <src x="0" y="0"/>
   <startLoc x="820" y="680"/>
   <speed x="150" y="150"/>
-   <speedX>-75</speedX>
+   <speedX>-45</speedX>
     <speedY>0</speedY>
   <transparency>true</transparency>
 </redstar>
 
 <bullet>
-    <file>images/sword1.png</file>
+    <file>images/sword.png</file>
     <startLoc x="10" y="680"/>
     <frames>1</frames>
-    <frameInterval>150</frameInterval>
+    <frameInterval>250</frameInterval>
     <speedX>-75</speedX>
     <speedY>0</speedY>
     <transparency>true</transparency>

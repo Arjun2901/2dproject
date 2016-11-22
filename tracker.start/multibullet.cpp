@@ -6,7 +6,7 @@
 
 multibullet::multibullet(const std::string& name, const Vector2f& pos, const Vector2f& vel):
   TwowayMSprite(name, pos, vel),
-  maxDistance(400),
+  maxDistance(175),
   tooFar(false),
   strategy(new MidPointCollisionStrategy())
 { }
@@ -25,26 +25,24 @@ multibullet::~multibullet(){
   }
 }
 
-void multibullet::setStrategy(CollisionStrategy* aStrategy){
-    strategy = aStrategy;
+void multibullet::setStrategy(CollisionStrategy* newStrategy){
+    strategy = newStrategy;
 }
 
 void multibullet::update(Uint32 ticks, const Vector2f& pPos) {
   
   Vector2f position = getPosition();
-  //std::cout << "bullet position" << position[0] << std::endl;
-  //std::cout << "player position" << pPos[0] << std::endl;
   if(Y()+frameHeight < 0 || Y() > worldHeight || X() < 0 || X() > worldWidth || position[0] > pPos[0] + maxDistance)
     tooFar = true;
 
   TwowayMSprite::update(ticks);
 }
 
-bool multibullet::collidedWith(const Drawable* d) {
-  bool bRet = false;
+bool multibullet::collidedWith(const Drawable* var) {
+  bool val = false;
   if(strategy){
-    bRet = strategy->execute(*this, *d);
+    val = strategy->execute(*this, *var);
   }
-  return bRet;
+  return val;
 }
 

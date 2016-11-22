@@ -18,9 +18,9 @@ public:
     tooFar = false;
     //distance = 0;
   }
-  void setStrategy(CollisionStrategy* aStrategy);
+  void setStrategy(CollisionStrategy* newStrategy);
 private:
-  //float distance;
+  
   float maxDistance;
   bool tooFar;
   CollisionStrategy* strategy;

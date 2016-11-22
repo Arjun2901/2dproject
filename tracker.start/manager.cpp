@@ -27,7 +27,7 @@ Manager::~Manager() {
   // These deletions eliminate "definitely lost" and
   // "still reachable"s in Valgrind.
   SDL_FreeSurface(orbSurface);
-  std::cout << "size" << sprites.size() << std::endl;
+  //std::cout << "size" << sprites.size() << std::endl;
   for (unsigned i = 0; i < sprites.size(); ++i) {
     delete sprites[i];
   }
@@ -70,7 +70,6 @@ Manager::Manager() :
   printOrbs();
   makeEnemy();
   sprites.push_back( new Sprite("genie") );
-  sprites.push_back( new MultiSprite("sword") );
   viewport.setObjectToTrack(sprites[currentSprite]);
 }
 
@@ -123,10 +122,10 @@ void Manager::draw() const {
   }
   player.draw();
   if ( checkForCollisions() ) {
-    io.printMessageAt("*** Oops ***, collision!", 320, 60);
+    io.printMessageAt("One Down! Many to go", 360, 60);
   }
   else {
-    io.printMessageAt("No Collision.", 320, 60);
+    io.printMessageAt("Ready to Shoot", 360, 60);
   }
   
   if(flag2 || clock.getSeconds() < 4)
@@ -227,9 +226,12 @@ void Manager::play() {
         if ( keystate[SDLK_t] ) {
           switchSprite();
         }
-        if ( keystate[SDLK_1] ) {
+        if ( keystate[SDLK_SPACE] ) {
 		  player.shoot();
         }
+        if (keystate[SDLK_n] ) {
+			bar.reset();
+		}
         if ( keystate[SDLK_i] ) {
           clock.toggleSloMo();
         }

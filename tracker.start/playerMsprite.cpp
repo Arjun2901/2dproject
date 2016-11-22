@@ -131,13 +131,13 @@ void playerMsprite::shoot()
     float bulletSpeed = 30;
     Vector2f vel = getVelocity();
     float x;
-    float y = Y()+ frameHeight/2 + 0;
+    float y = Y()+ frameHeight/4 + 0;
     if(vel[0] >= 0) {
       x = X() + frameWidth - 40;
       vel[0] += bulletSpeed;
     }
     else {
-      x=X();
+      x=X() - frameWidth + 40;;
       vel[0] -= bulletSpeed;
     }
     vel[1] *=0;
