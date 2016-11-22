@@ -11,37 +11,11 @@ extern int flag;
 extern int flag1;
 void TwowayMSprite::advanceFrame(Uint32 ticks) {
 	timeSinceLastFrame += ticks;
-	unsigned int mid = numberOfFrames/2;
-	if (timeSinceLastFrame > frameInterval) 
-	{
-        if(velocityX() > 0)
-        {
-			if(flag == 0)
-            {
-				mid = 1;
-			}
-            currentFrame = (currentFrame+1) % mid;
-            
-        }
-        else 
-        {
-            if(currentFrame > mid)
-            {
-                currentFrame =  (currentFrame+1) % numberOfFrames;
-            }
-            if(currentFrame < mid)
-            {
-                currentFrame = (currentFrame + mid + 1) % numberOfFrames;
-            }
-            if(flag == 0)
-            {
-				currentFrame = 5;
-			}
-        }
-        timeSinceLastFrame = 0;
+	if (timeSinceLastFrame > frameInterval) {
+    currentFrame = (currentFrame+1) % numberOfFrames;
+		timeSinceLastFrame = 0;
 	}
 }
-
 
 TwowayMSprite::TwowayMSprite( const std::string& name) :
   Drawable(name, 
@@ -77,6 +51,19 @@ TwowayMSprite::TwowayMSprite(const TwowayMSprite& s) :
   frameHeight( s.frameHeight )
   { }
 
+TwowayMSprite::TwowayMSprite(const string& n, const Vector2f& pos, const Vector2f& vel):
+  Drawable(n, pos, vel),
+  explosion(NULL), 
+  frames( FrameFactory::getInstance().getFrames(n) ),
+  worldWidth(Gamedata::getInstance().getXmlInt("Sky/width")),
+  worldHeight(Gamedata::getInstance().getXmlInt("Sky/height")),
+  currentFrame(0),
+  numberOfFrames( Gamedata::getInstance().getXmlInt(n+"/frames") ),
+  frameInterval( Gamedata::getInstance().getXmlInt(n+"/frameInterval") ),
+  timeSinceLastFrame( 0 ),
+  frameWidth(frames[0]->getWidth()),
+  frameHeight(frames[0]->getHeight())
+{ }
 
 void TwowayMSprite::explode(){
 	if(explosion) return;
@@ -93,64 +80,23 @@ void TwowayMSprite::draw() const {
 }
 
 void TwowayMSprite::update(Uint32 ticks) { 
-  advanceFrame(ticks);
-  if (explosion){
-		explosion->update(ticks);
-		if(explosion->chunkCount() == 0){
-			delete explosion;
-			explosion = NULL;
-		}
-		return;
-  } 
+ advanceFrame(ticks);
+
   Vector2f incr = getVelocity() * static_cast<float>(ticks) * 0.001;
- // setPosition(getPosition() + incr);
-  float x = incr[0] ;
-  float y = incr[1];
-  if(flag == 1)
-  {
-	  if(X() < 1510)
-	  {
-		float t = X() + x;
-		X(t);
-	  }
-  }
-  if(flag == -1)
-  {
-	  if(X() > 0)
-	  {
-		float t = X() + x;
-		X(t);
-	  }
+  setPosition(getPosition() + incr);
+
+  if ( Y() < 0) {
+    velocityY( abs( velocityY() ) );
   }
   
-  if(flag1 == 1)
-  {
-	  if(Y() < 695)
-	  {
-		float s = Y() + y;
-		Y(s);
-	  }
-  }
-  if(flag1 == -1)
-  {
-	  if(Y() > 620)
-	  {
-	 float s = Y() - y;
-	 Y(s);
- }
-  }
-  if (flag1 == 1) {
-    velocityY( abs( velocityY() ) );
-  }
-  if ( flag1 == -1) {
-    velocityY( abs( velocityY() ) );
-  }
-
-  if (flag == 1)
-  {
+  if ( X() < 0) {
     velocityX( abs( velocityX() ) );
   }
- else if ( flag == -1) {
-      velocityX( -abs( velocityX() ) );
-  }    
+  
+  if ( Y() > worldHeight-frameHeight) {
+        velocityY( -abs( velocityY() ) );
+    }
+    if ( X() > worldWidth-frameWidth) {
+        velocityX( -abs( velocityX() ) );
+    }  
 }

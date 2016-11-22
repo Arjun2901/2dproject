@@ -9,6 +9,7 @@ class TwowayMSprite : public Drawable {
 public:
   TwowayMSprite(const std::string&);
   TwowayMSprite(const TwowayMSprite&);
+  TwowayMSprite(const std::string&, const Vector2f& pos, const Vector2f& vel);
   virtual ~TwowayMSprite() { } 
 
   virtual void draw() const;

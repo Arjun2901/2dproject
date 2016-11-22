@@ -159,4 +159,14 @@
     <speedY>0</speedY>
   <transparency>true</transparency>
 </redstar>
+
+<bullet>
+    <file>images/sword1.png</file>
+    <startLoc x="10" y="680"/>
+    <frames>1</frames>
+    <frameInterval>150</frameInterval>
+    <speedX>-75</speedX>
+    <speedY>0</speedY>
+    <transparency>true</transparency>
+</bullet>
 </GameData>

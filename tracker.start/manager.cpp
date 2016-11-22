@@ -2,7 +2,6 @@
 #include <string>
 #include <iomanip>
 #include "multisprite.h"
-#include "twowayMsprite.h"
 #include "Enemy2Msprite.h"
 #include "playerMsprite.h"
 #include "sprite.h"
@@ -239,9 +238,9 @@ void Manager::play() {
         if ( keystate[SDLK_t] ) {
           switchSprite();
         }
-       /* if ( keystate[SDLK_1] ) {
-		  sprites[0]->explode();
-        }*/
+        if ( keystate[SDLK_1] ) {
+		  player.shoot();
+        }
         if ( keystate[SDLK_i] ) {
           clock.toggleSloMo();
         }

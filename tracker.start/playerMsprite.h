@@ -3,10 +3,10 @@
 #include <string>
 #include <vector>
 #include "drawable.h"
-#include "twowayMsprite.h"
 #include "gamedata.h"
 #include "collisionStrategy.h"
 #include "playerMsprite.h"
+#include "multibullets.h"
 
 class ExplodingSprite; 
 
@@ -17,6 +17,7 @@ public:
   playerMsprite(const playerMsprite&);
   virtual ~playerMsprite(); 
   virtual void draw() const; 
+  void shoot();
   virtual void update(Uint32 ticks);
   virtual const Frame* getFrame() const { 
     return frames[currentFrame]; 
@@ -31,6 +32,8 @@ public:
   void explode();
 protected:
   ExplodingSprite* explosion;
+  std::string name1;
+  multibullets bullet;
   const std::vector<Frame *> frames;
   int worldWidth;
   int worldHeight;

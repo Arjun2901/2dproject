@@ -41,7 +41,7 @@ void playerMsprite::advanceFrame(Uint32 ticks) {
             }
             if(flag == 0)
             {
-				currentFrame = 5;
+				currentFrame = 14;
 			}
         }
         timeSinceLastFrame = 0;
@@ -56,6 +56,8 @@ playerMsprite::playerMsprite( const std::string& name) :
                     Gamedata::getInstance().getXmlInt(name+"/speedY"))
            ),
   explosion(NULL),
+  name1("bullet"),
+  bullet(name1),
   frames( FrameFactory::getInstance().getFrames(name) ),
   worldWidth(Gamedata::getInstance().getXmlInt("Sky/width")),
   worldHeight(Gamedata::getInstance().getXmlInt("Sky/height")),
@@ -77,6 +79,8 @@ playerMsprite::playerMsprite( const std::string& name) :
 playerMsprite::playerMsprite( const std::string& name, const Vector2f &pos, const Vector2f &vel) :
   Drawable(name, pos, vel),
   explosion(NULL),
+  name1("bullet"),
+  bullet(name1),
   frames( FrameFactory::getInstance().getFrames(name) ),
   worldWidth(Gamedata::getInstance().getXmlInt("Sky/width")),
   worldHeight(Gamedata::getInstance().getXmlInt("Sky/height")),
@@ -99,6 +103,8 @@ playerMsprite::playerMsprite( const std::string& name, const Vector2f &pos, cons
 playerMsprite::playerMsprite(const playerMsprite& s) :
   Drawable(s), 
   explosion(NULL),
+  name1(s.name1),
+  bullet(s.bullet),
   frames(s.frames),
   worldWidth( s.worldWidth ),
   worldHeight( s.worldHeight ),
@@ -112,6 +118,26 @@ playerMsprite::playerMsprite(const playerMsprite& s) :
   strategy( NULL )
   { }
 
+
+void playerMsprite::shoot()
+{
+    float bulletSpeed = 30;
+    Vector2f vel = getVelocity();
+    float x;
+    float y = Y()+ frameHeight/2 + 0;
+    if(vel[0] >= 0) {
+      x = X() + frameWidth - 40;
+      vel[0] += bulletSpeed;
+    }
+    else {
+      x=X();
+      vel[0] -= bulletSpeed;
+    }
+    vel[1] *=0;
+  
+    bullet.shoot(Vector2f(x,y), vel);
+}
+
 void playerMsprite::explode(){
 	if(explosion) return;
 	explosion = new ExplodingSprite(Sprite(getName(), getPosition(), getVelocity(), frames[currentFrame]));
@@ -123,6 +149,7 @@ void playerMsprite::draw() const {
 		return;
 	}
   
+  bullet.draw();
   Uint32 x = static_cast<Uint32>(X());
   Uint32 y = static_cast<Uint32>(Y());
   frames[currentFrame]->draw(x, y);
@@ -189,4 +216,6 @@ if (explosion){
  else if ( flag == -1) {
       velocityX( -abs( velocityX() ) );
   }    
+  
+  bullet.update(ticks, getPosition());
 }
