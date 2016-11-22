@@ -18,6 +18,7 @@ public:
   virtual ~playerMsprite(); 
   virtual void draw() const; 
   void shoot();
+  void reset();
   multibullets getbullet() const { return bullet; }
 
   virtual void update(Uint32 ticks);

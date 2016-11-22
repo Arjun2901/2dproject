@@ -118,7 +118,14 @@ playerMsprite::playerMsprite(const playerMsprite& s) :
   strategy( NULL )
   { }
 
-
+void playerMsprite::reset()
+{
+	X(0);
+	Y(680);
+	velocityX(-75);
+	velocityY(75);
+	
+}
 void playerMsprite::shoot()
 {
     float bulletSpeed = 30;
