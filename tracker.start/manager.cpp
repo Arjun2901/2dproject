@@ -68,11 +68,6 @@ Manager::Manager() :
   atexit(SDL_Quit);
   makeOrbs();
   printOrbs();
-  
-  //sprites.push_back( new playerMsprite("Aladin") );
- 
-  //sprites.push_back( new MultiSprite("Enemy") );
-  
   makeEnemy();
   sprites.push_back( new Sprite("genie") );
   sprites.push_back( new MultiSprite("sword") );
@@ -82,7 +77,6 @@ Manager::Manager() :
 void Manager::makeEnemy(){
 	std::string name = "Enemy";
 	unsigned numberofEnemy = Gamedata::getInstance().getXmlInt("Enemy/numberofEnemy");
-	std::cout << "------------------Enemy-" << numberofEnemy << std::endl;
 	Enemy2Msprite *enemies = NULL;
 	Vector2f vel(Gamedata::getInstance().getXmlFloat("Enemy/speedX"),Gamedata::getInstance().getXmlFloat("Enemy/speedY"));
 	for(unsigned int i=0; i < numberofEnemy; i++)
@@ -92,8 +86,6 @@ void Manager::makeEnemy(){
 		
 		enemies = new Enemy2Msprite(name,pos,vel);
 		sprites.push_back(enemies);	
-		std::cout<<sprites[i]<<"i======"<<i<<std::endl;
-	//	std::cout<<sprites[1]<<i<<std::endl;
 	}	
 }
 void Manager::makeOrbs() {
@@ -107,7 +99,6 @@ void Manager::makeOrbs() {
 
 void Manager::printOrbs() const {
   for (unsigned i = 0; i < orbs.size(); ++i) {
-    //std::cout << orbs[i]->getScale() << std::endl;
   }
 }
 
@@ -127,7 +118,6 @@ void Manager::draw() const {
     orbs[j]->draw();
   }
 
-  
   for (unsigned i = 0; i < sprites.size(); ++i) {
     sprites[i]->draw();
   }
