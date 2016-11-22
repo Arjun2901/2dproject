@@ -18,6 +18,8 @@ public:
   virtual ~playerMsprite(); 
   virtual void draw() const; 
   void shoot();
+  multibullets getbullet() const { return bullet; }
+
   virtual void update(Uint32 ticks);
   virtual const Frame* getFrame() const { 
     return frames[currentFrame]; 

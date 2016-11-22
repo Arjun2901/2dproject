@@ -9,7 +9,7 @@ class Hud {
 public:
 Hud();
 ~Hud();
-void drawhud(float,float ) const;
+void drawhud(float,float, int, int) const;
 
 private:
 SDL_Surface* screen;

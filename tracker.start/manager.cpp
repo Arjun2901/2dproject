@@ -145,7 +145,7 @@ void Manager::draw() const {
   
   if(flag2 || clock.getSeconds() < 4)
   {
-	hud1.drawhud(clock.getSeconds(),clock.getfps());
+	hud1.drawhud(clock.getSeconds(),clock.getfps(), player.getbullet().getBulletlistCount(), player.getbullet().getFreelistCount());
   }
   io.printMessageAt(title, 10, 450);
   viewport.draw();
@@ -164,24 +164,20 @@ void Manager::makeFrame() {
 }
 
 void Manager::switchSprite() {
-  //currentSprite = (currentSprite+1) % sprites.size();
   viewport.setObjectToTrack(&player);
 }
 
-bool Manager::checkForCollisions() const {
-  /*std::vector<Drawable*>::const_iterator sprite = sprites.begin();
-  while ( sprite != sprites.end() ) {
-    if ( player.collidedWith(*sprite) ) return true;
-    ++sprite;
-  }*/
+bool Manager::checkForCollisions() const { 
   unsigned numberofEnemy = Gamedata::getInstance().getXmlInt("Enemy/numberofEnemy");
   for(unsigned int i=0; i < numberofEnemy; i++)
   {
-	  if ( player.collidedWith(sprites[i]) ) {
-	  sprites[i]->explode();
-	  return true;
+	  if (player.getbullet().collidedWith(sprites[i]))
+	  {
+		 sprites[i]->explode();
+		 return true;
+	  }
   }
-  }
+  
   return false;
 }
 
@@ -205,11 +201,18 @@ void Manager::update() {
   if ( makeVideo && frameCount < frameMax ) {
     makeFrame();
   }
-   if(checkForCollisions()){   
-  bar.update();
-  bar.draw();
-  SDL_Flip(screen);
-}
+  
+  unsigned numberofEnemy = Gamedata::getInstance().getXmlInt("Enemy/numberofEnemy");
+  for(unsigned int i=0; i < numberofEnemy; i++)
+  {
+	  if (player.collidedWith(sprites[i]))
+	  {
+		 bar.update();
+		 bar.draw();
+		 SDL_Flip(screen);
+	  }
+  } 
+ 
   player.update(ticks);
  
   Sky.update();
@@ -267,7 +270,8 @@ void Manager::play() {
 			 {  
 				flag2 = false;
 		     }
-		 }
+		}
+		
 		if(keystate[SDLK_d])
         {
 			flag = 1;
@@ -283,6 +287,10 @@ void Manager::play() {
 		if(keystate[SDLK_w])
 		{
 			flag1 = -1;
+		}
+		if(keystate[SDLK_d] && keystate[SDLK_a])
+		{
+			flag = 0;
 		}
 		player.setCollisionStrategy(2);
 		

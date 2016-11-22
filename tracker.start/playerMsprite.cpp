@@ -196,7 +196,7 @@ if (explosion){
   }
   if(flag1 == -1)
   {
-	  if(Y() > 620)
+	  if(Y() > 520)
 	  {
 	 float s = Y() - y;
 	 Y(s);

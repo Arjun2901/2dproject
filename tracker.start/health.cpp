@@ -6,7 +6,7 @@ Health::Health() :
   totalLength(150), 
   currentLength(150), 
   thick(8), 
-  increments(0.1),
+  increments(0.0001),
   interval(1000),
   deltaTime(0),
   RED( SDL_MapRGB(screen->format, 0xff, 0x00, 0x00) ),

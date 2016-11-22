@@ -50,7 +50,7 @@ public:
 	  throw std::string("I cant explode");
   }
   
-  virtual void setCollisionStrategy(int index) const { 
+  virtual void setCollisionStrategy(int) const { 
     throw std::string("set collision strategy");  
   }
 private:

@@ -4,14 +4,14 @@
 #include "Hud.h"
 #include "aaline.h"
 #include "ioManager.h"
-
+#include "multibullets.h"
 
 Hud::Hud():
 	screen(IOManager::getInstance().getScreen()),
 	RED(SDL_MapRGB(screen->format, 0xff, 0, 0)),
 	flag2(false){}
 Hud::~Hud(){}
-void Hud::drawhud(float secs, float fpss) const {
+void Hud::drawhud(float secs, float fpss, int bulletlistsize, int freelistsize) const {
 	IOManager& io = IOManager::getInstance();
     io.printMessageValueAt("Seconds: ", secs, Gamedata::getInstance().getXmlInt("Hud/xval"), Gamedata::getInstance().getXmlInt("Hud/yval"));
     io.printMessageValueAt("Frames per sec(fps) = ",fpss, Gamedata::getInstance().getXmlInt("Hud/xval"), 
@@ -24,7 +24,8 @@ void Hud::drawhud(float secs, float fpss) const {
     Gamedata::getInstance().getXmlInt("Hud/yval")+105);
     io.printMessageAt("S : Move Down", Gamedata::getInstance().getXmlInt("Hud/xval")+90, Gamedata::getInstance().getXmlInt("Hud/yval")+140);
     io.printMessageAt("Spacebar : Shoot", Gamedata::getInstance().getXmlInt("Hud/xval")+5, Gamedata::getInstance().getXmlInt("Hud/yval")+160);
-    //io.printMessageAt("S : Move Down", Gamedata::getInstance().getXmlInt("Hud/xval")+90, Gamedata::getInstance().getXmlInt("Hud/yval")+170);
+    io.printMessageValueAt("bulletlist = ", bulletlistsize, Gamedata::getInstance().getXmlInt("Hud/xval")+95, Gamedata::getInstance().getXmlInt("Hud/yval")+175);
+    io.printMessageValueAt("freelist = ", freelistsize, Gamedata::getInstance().getXmlInt("Hud/xval")+110, Gamedata::getInstance().getXmlInt("Hud/yval")+190);
     
      Sint16 y1 = 20;
      y1 += 40;
